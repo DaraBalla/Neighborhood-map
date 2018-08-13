@@ -1,28 +1,90 @@
-.App {
-  text-align: center;
+* {
+  /*border: 1px solid red;*/
+  box-sizing: border-box;
+  
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+
+
+.App {
+  text-align: center;
+  height: 800px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: black;
+  height: auto;
   padding: 20px;
   color: white;
+  
 }
 
-.App-title {
-  font-size: 1.5em;
-}
+    #firstLine {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      align-items: center; /* Na výšku */
+    }
 
-.App-intro {
-  font-size: large;
-}
+        .App-logo {
+          animation: App-logo-spin infinite 10s linear;
+          height: 60px;
+          width: 60px;
+          border-radius: 50px;
+        }
+
+        .App-title {
+          font-size: 1.5em;
+          width: auto;
+          text-align: center;
+          padding-left: 10px;
+        }
+
+    .App-intro {
+      font-size: large;
+      width: auto;
+      max-width: 470px;
+      text-align: center;
+      margin: auto;
+    }
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+#main {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  color: green;
+  width: 100%;
+  height: 80%;
+}
+
+#sideBar {
+  height: 100%;
+  width: 30%;
+}
+
+#map {
+  height: 100%;
+  width: 70%;
+}
+
+#list {
+background-color: black;
+height: 90%;
+}
+
+#searchBar {
+  background-color: black;
+  height: 10%;
+}
+
+#searchField {
+  padding: 10px;
+  height: 40px;
+  width: 100%;
 }
