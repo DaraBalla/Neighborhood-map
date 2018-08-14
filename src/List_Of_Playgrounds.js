@@ -1,32 +1,61 @@
 import React, { Component } from 'react'
 import ReactPropTypes from 'prop-types'
+import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by'
 
 
 class List extends Component {
   static ReactPropTypes = {
     playgroundsDetail: ReactPropTypes.array.isRequired
   }
-  
-  render () {
 
+  state = {
+    search: ''
+  }
+  
+  searchAsk = (ask) => {
+    this.setState({
+      search: ask.trim()
+    })
+  }
+
+  render () {
+    
     let searchedPlaygrounds
 
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
-      searchedPlaygrounds = this.props.playgrounds.filter(() => result.test(playground.address))
+      searchedPlaygrounds = this.props.playgrounds.filter((playground) => result.test(playground.city))
 
     } else {
-      searchedPlaygrounds = this.props.playgroundsDetail
+      searchedPlaygrounds = this.props.playgrounds
     }
 
 		return (
-      <ol className="ListOfPG">
-        {this.props.searchedPlaygrounds.map((playground) => 
-          <li key={playground.address}>
-            {playground.city}, {playground.address}
-          </li>
-          )}
-      </ol>
+      
+            <div id= "list">
+              <input 
+                type="text" 
+                placeholder="Search place" 
+                id="searchField"
+                value={this.state.search}
+                onChange={(event) => 
+                this.searchAsk(event.target.value)}
+              />
+            
+                  {/*{JSON.stringify(this.state.search)}*/}
+
+              <ol className="ListOfPG">
+                {searchedPlaygrounds.map((playground) => (
+                  <li key={playground.address}>
+                    {playground.city}, {playground.address}
+                  </li>
+                  ))}
+              </ol>
+            </div>
+      
+      
+      
 		)
 	}
 }

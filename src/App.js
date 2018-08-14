@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import './Map.js'
-import Playground from './List_Of_Playgrounds'
 import List from './List_Of_Playgrounds'
-import escapeRegExp from 'escape-string-regexp'
-import sortBy from 'sort-by'
 
 class App extends Component {
   state = {
@@ -34,29 +31,13 @@ class App extends Component {
         "address": "Hlavni 47",
         "equipment": []
       }
-    ],
-
-    search: ''
+    ]    
   }
 
-  searchAsk = (ask) => {
-    this.setState({
-      search: ask.trim()
-    })
-  }
+  
 
   render() {
 
-    let searchedPlaygrounds
-
-    if (this.state.search) {
-      const result = new RegExp(escapeRegExp(this.state.search), 'i')
-      searchedPlaygrounds = this.props.playgrounds.filter(() => result.test(playground.address))
-
-    } else {
-      searchedPlaygrounds = this.props.playgroundsDetail
-    }
-    
     return (
       <div className="App">
         
@@ -80,22 +61,7 @@ class App extends Component {
         <div id="main">
 
           <div id="sideBar">
-                        
-            <input 
-              type="text" 
-              placeholder="Search place" 
-              id="searchField"
-              value={this.state.search}
-              onChange={(event) => 
-                this.searchAsk(event.target.value)}
-            />
-            
-           {/*{JSON.stringify(this.state.search)}*/}
-
-            <div id= "list">
-              <List playgrounds={this.state.playgroundsDetail}/> 
-            </div>
-
+            <List playgrounds={this.state.playgroundsDetail}/>            
           </div>
 
           <div id="map"><p>map</p>
