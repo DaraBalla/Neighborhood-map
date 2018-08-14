@@ -26,12 +26,13 @@ class List extends Component {
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
       searchedPlaygrounds = this.props.playgrounds.filter((playground) => result.test(playground.city))
-
+      searchedPlaygrounds.sort(sortBy('address'))
     } else {
       searchedPlaygrounds = this.props.playgrounds
+      searchedPlaygrounds.sort(sortBy('city'))
     }
 
-    searchedPlaygrounds.sort(sortBy('address'))
+    
 
 		return (
       
