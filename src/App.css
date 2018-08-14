@@ -63,28 +63,25 @@
   height: 80%;
 }
 
-#sideBar {
-  height: 100%;
-  width: 30%;
-}
+    #sideBar {
+      height: 100%;
+      width: 30%;
+    }        
+        #searchField {
+          padding: 10px;
+          height: 40px;
+          width: 100%;
+        }
+    
+        #list {
+        background-color: black;
+        height: 100%;
+        margin-top: -15px;
+        padding-top: 10px;
+        }
 
-#map {
-  height: 100%;
-  width: 70%;
-}
+    #map {
+      height: 100%;
+      width: 70%;
+    }
 
-#list {
-background-color: black;
-height: 90%;
-}
-
-#searchBar {
-  background-color: black;
-  height: 10%;
-}
-
-#searchField {
-  padding: 10px;
-  height: 40px;
-  width: 100%;
-}
