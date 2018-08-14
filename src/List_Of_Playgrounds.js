@@ -31,6 +31,8 @@ class List extends Component {
       searchedPlaygrounds = this.props.playgrounds
     }
 
+    searchedPlaygrounds.sort(sortBy('address'))
+
 		return (
       
             <div id= "list">
