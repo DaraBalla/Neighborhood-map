@@ -20,6 +20,10 @@ class List extends Component {
   }
 
   render () {
+
+    /* Pro přehlednost pak zaměnit:
+        const { search } = this.state
+        const { playgrounds } = this.props */
     
     let searchedPlaygrounds
 
@@ -39,7 +43,7 @@ class List extends Component {
             <div id= "list">
               <input 
                 type="text" 
-                placeholder="Search place" 
+                placeholder="Search place by City" 
                 id="searchField"
                 value={this.state.search}
                 onChange={(event) => 
