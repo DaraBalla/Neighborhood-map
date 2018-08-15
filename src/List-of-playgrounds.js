@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactPropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
+import { Link } from 'react-router-dom'
 
 
 class List extends Component {
@@ -41,6 +42,8 @@ class List extends Component {
 		return (
       
             <div id= "list">
+              <button className="add-new-playground" >
+              <Link to='/add'>Add new playground</Link></button>
               <input 
                 type="text" 
                 placeholder="Search place by City" 

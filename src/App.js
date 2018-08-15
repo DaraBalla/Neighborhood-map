@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import MainPage from './MainPage'
-import Header from './Header'
+import NewPlayground from './Add-new-playground'
 import { Route } from 'react-router-dom'
 
 class App extends Component {
@@ -11,8 +11,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header/>
-        <MainPage/>     
+        <Route exact path="/" render={() => (
+          <MainPage/>
+        )}
+        />
+        <Route path="/add" render={() => (
+          <NewPlayground/>
+        )} />
       </div>
     );
   }
