@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import List from './List-of-playgrounds'
 import Header from './Header';
+import Map from './Map';
 
 class MainPage extends Component {
 
@@ -34,6 +35,14 @@ class MainPage extends Component {
     ]    
   }
 
+	/*initMap() {
+		var map;
+		map = new window.google.maps.Map(document.getElementById('map'), {
+			center: {lat: 40, lng: -73},
+			zoom: 13
+		})
+		}*/
+
 	render () {
 		return (
 			<div className="mainPage">
@@ -45,21 +54,7 @@ class MainPage extends Component {
 						<List playgrounds={this.state.playgroundsDetail}/>            
 					</div>
 		
-					<div id="map">
-						<p>map</p>
-							{/* function initMap() {
-								var map;
-								map = new google.maps.Map(document.getElementById('map'), {
-									center: {lat: 40, lng: -73},
-									zoom: 13
-								})
-								} */}
-					
-						<script async defer
-							src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI71ndio2s7kJpHicofZyytGLd0sn3s8E&v=3&callback=initMap">
-						</script>
-
-					</div>
+					<Map/>
 		
 				</div>
 			</div>          

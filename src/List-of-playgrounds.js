@@ -42,17 +42,21 @@ class List extends Component {
 		return (
       
             <div id= "list">
-              <button className="add-new-playground" >
-              <Link to='/add'>Add new playground</Link></button>
-              <input 
-                type="text" 
-                placeholder="Search place by City" 
-                id="searchField"
-                value={this.state.search}
-                onChange={(event) => 
-                this.searchAsk(event.target.value)}
-              />
-            
+              <Link className="add-new-playground" to='/add'>
+                <div className='plus-sign'></div>
+                <div className='add-playground'>Add new playground</div>
+              </Link>
+              <div className='search-field'>
+                <div className='search-sign'></div>                
+                <input 
+                  type="text" 
+                  placeholder="Search place by City" 
+                  id="searchField"
+                  value={this.state.search}
+                  onChange={(event) => 
+                  this.searchAsk(event.target.value)}
+                />
+              </div>
                   {/*{JSON.stringify(this.state.search)}*/}
 
               <ol className="ListOfPG">
