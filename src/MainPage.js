@@ -8,53 +8,62 @@ class MainPage extends Component {
 	state = {
     playgroundsDetail: [
       {
-        "city": "Velke Hostice",
-        "address": "Zamecka 85",
+        "city": "Velké Hoštice",
+        "address": "Zámecká 197",
+        "lat": 49.933055,
+        "lng": 17.972581,
         "equipment": []
       },
       {
-        "city": "Velke Hostice",
-        "address": "Akatova 40",
+        "city": "Velké Hoštice",
+        "address": "Akátová 461",
+        "lat": 49.940359,
+        "lng": 17.969912,
         "equipment": []
       },
       {
-        "city": "Velke Hostice",
-        "address": "Mirova 22",
+        "city": "Velké Hoštice",
+        "address": "Mírova 119",
+        "lat": 49.927919,
+        "lng": 17.978811,
         "equipment": []
       },
       {
-        "city": "Kravare",
-        "address": "Kostelni 152",
+        "city": "Kravaře",
+        "address": "Mírová 3033/27",
+        "lat": 49.930684,
+        "lng": 17.996235,
         "equipment": []
       },
       {
-        "city": "Chlebicov",
-        "address": "Hlavni 47",
+        "city": "Velké Hoštice",
+        "address": "Pekliska 48",
+        "lat": 49.939094,
+        "lng": 17.97441,
         "equipment": []
       }
-    ]    
+    ],
+    
+    searchedPlaygroundsFromList: null
   }
-
-	/*initMap() {
-		var map;
-		map = new window.google.maps.Map(document.getElementById('map'), {
-			center: {lat: 40, lng: -73},
-			zoom: 13
-		})
-		}*/
-
+  
+  listCallback = (searchedPlaygrounds) => {
+    this.setState({ searchedPlaygroundsFromList: searchedPlaygrounds })
+  }
+  
 	render () {
-		return (
-			<div className="mainPage">
+    
+    return (
+      <div className="mainPage">
 				 <Header/>
 			
 				<div id="main">
-
+          
 					<div id="sideBar">
-						<List playgrounds={this.state.playgroundsDetail}/>            
+						<List playgrounds={this.state.playgroundsDetail} parentCallback={this.listCallback}/>            
 					</div>
 		
-					<Map/>
+					<Map playgroundss={this.state.playgroundsDetail} searchedPlaygroundsFromList={this.state.searchedPlaygroundsFromList}/>
 		
 				</div>
 			</div>          

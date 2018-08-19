@@ -4,6 +4,7 @@ import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import { Link } from 'react-router-dom'
 
+let searchedPlaygrounds
 
 class List extends Component {
   static ReactPropTypes = {
@@ -20,13 +21,18 @@ class List extends Component {
     })
   }
 
+  componentDidMount() {
+    this.props.parentCallback(searchedPlaygrounds)
+    
+  }
+
   render () {
 
     /* Pro přehlednost pak zaměnit:
         const { search } = this.state
         const { playgrounds } = this.props */
     
-    let searchedPlaygrounds
+      
 
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
@@ -61,7 +67,7 @@ class List extends Component {
 
               <ol className="ListOfPG">
                 {searchedPlaygrounds.map((playground) => (
-                  <li key={playground.address}>
+                  <li key={playground.lng}>
                     {playground.city}, {playground.address}
                   </li>
                   ))}
