@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import List from './List-of-playgrounds'
 import Header from './Header';
-import Map from './Map';
+
 
 class MainPage extends Component {
 
@@ -63,7 +63,7 @@ class MainPage extends Component {
 						<List playgrounds={this.state.playgroundsDetail} parentCallback={this.listCallback}/>            
 					</div>
 		
-					<Map playgroundss={this.state.playgroundsDetail} searchedPlaygroundsFromList={this.state.searchedPlaygroundsFromList}/>
+					
 		
 				</div>
 			</div>          

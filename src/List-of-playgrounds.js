@@ -3,6 +3,7 @@ import ReactPropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import { Link } from 'react-router-dom'
+import Map from './Map';
 
 let searchedPlaygrounds
 
@@ -21,7 +22,7 @@ class List extends Component {
     })
   }
 
-  componentDidMount() {
+  componentDidMount() { //aby se playground načetly až potom, co budou vyfiltrované, jinak by tam nic nebylo
     this.props.parentCallback(searchedPlaygrounds)
     
   }
@@ -46,7 +47,7 @@ class List extends Component {
     
 
 		return (
-      
+      <div>
             <div id= "list">
               <Link className="add-new-playground" to='/add'>
                 <div className='plus-sign'></div>
@@ -73,7 +74,9 @@ class List extends Component {
                   ))}
               </ol>
             </div>
-      
+            
+            <Map playgroundss={this.state.playgroundsDetail} searchedPlaygroundsFromList={searchedPlaygrounds}/>
+      </div>
       
       
 		)

@@ -7,11 +7,7 @@ class Map extends Component {
 	
 	state = {
 		isMarkerShown: false,
-		search: []	
-	}
-
-	componentDidMount() {
-		this.setState({ search: searchedPlaygrounds})
+		
 	}
 
 	handleMarkerClick = () => {
