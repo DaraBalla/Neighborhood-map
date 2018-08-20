@@ -7,7 +7,7 @@ class Map extends Component {
 	
 	state = {
 		activeMarker: {},
-		showInfo: true,
+		showInfo: false,
 		selectedPlace: {}
 	}
 
@@ -15,7 +15,7 @@ class Map extends Component {
 		this.setState({ 
 			showInfo: true,
 			activeMarker: marker,
-			
+			selectedPlace: props	
 		 })
 	}
 
@@ -39,12 +39,10 @@ class Map extends Component {
 							<InfoWindow
 								visible={this.state.showInfo}
 								marker={this.state.activeMarker}
-								/*position={{ lat: marker.lat, lng: marker.lng }}*/
+								
 							>
 								<div>
-									<div>
-										<h1>{marker.address}</h1>
-									</div>
+									<h1>{marker.address}</h1>					
 								</div>
 							</InfoWindow> 
 						)}
