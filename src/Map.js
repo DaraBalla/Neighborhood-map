@@ -35,7 +35,7 @@ class Map extends Component {
 						position={{ lat: marker.lat, lng: marker.lng }}
 						onClick={this.onClickMarker}
 					>
-						{marker && (
+						{marker.showInfo && (
 							<InfoWindow
 								visible={this.state.showInfo}
 								marker={this.state.activeMarker}
