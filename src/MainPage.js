@@ -42,16 +42,10 @@ class MainPage extends Component {
         "lng": 17.97441,
         "equipment": []
       }
-    ],
-    
-    searchedPlaygroundsFromList: null
+    ],    
   }
   
-  listCallback = (searchedPlaygrounds) => {
-    this.setState({ searchedPlaygroundsFromList: searchedPlaygrounds })
-  }
-  
-	render () {
+  render () {
     
     return (
       <div className="mainPage">
@@ -60,7 +54,7 @@ class MainPage extends Component {
 				<div id="main">
           
 					<div id="sideBar">
-						<List playgrounds={this.state.playgroundsDetail} parentCallback={this.listCallback}/>            
+						<List playgrounds={this.state.playgroundsDetail}/>            
 					</div>
 		
 					

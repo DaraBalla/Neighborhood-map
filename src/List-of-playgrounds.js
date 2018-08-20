@@ -22,10 +22,6 @@ class List extends Component {
     })
   }
 
-  componentDidMount() { //aby se playground načetly až potom, co budou vyfiltrované, jinak by tam nic nebylo
-    this.props.parentCallback(searchedPlaygrounds)
-    
-  }
 
   render () {
 

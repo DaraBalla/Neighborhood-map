@@ -1,23 +1,26 @@
 import React, { Component } from 'react'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps'
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
 let searchedPlaygrounds
 
 class Map extends Component {
 	
 	state = {
-		isMarkerShown: false,
-		
+		activeMarker: {},
+		showInfo: true,
+		selectedPlace: {}
 	}
 
-	handleMarkerClick = () => {
-		this.setState({ isMarkerShown: false })
+	onClickMarker = (props, marker, e) => {
+		this.setState({ 
+			showInfo: true,
+			activeMarker: marker,
+			
+		 })
 	}
 
 	render() {
-		let playgrounds = this.props.playgroundss
-		/*let playgroundLat = playgrounds.map((playground) => playground.lat)
-		let playgroundLng = playgrounds.map((playground) => playground.lng)*/
+		
 		searchedPlaygrounds = this.props.searchedPlaygroundsFromList
 
 
@@ -26,21 +29,43 @@ class Map extends Component {
 				defaultCenter = { { lat: 49.936089, lng: 17.973804 } }
 				defaultZoom = { 13 }
 			>
-			{searchedPlaygrounds.map((marker) =>
-			<Marker position={{ lat: marker.lat, lng: marker.lng }} /> )}
+				{searchedPlaygrounds.map((marker, index) =>
+					<Marker 
+						key={index}	
+						position={{ lat: marker.lat, lng: marker.lng }}
+						onClick={this.onClickMarker}
+					>
+						{marker && (
+							<InfoWindow
+								visible={this.state.showInfo}
+								marker={this.state.activeMarker}
+								/*position={{ lat: marker.lat, lng: marker.lng }}*/
+							>
+								<div>
+									<div>
+										<h1>{marker.address}</h1>
+									</div>
+								</div>
+							</InfoWindow> 
+						)}
+					</Marker> 
+				)}
 			</GoogleMap>
 		)))
+
+			
+			
 
 		console.log(searchedPlaygrounds)
 
 		return(
 			<div className="map-container">
 				<PlaygroundsMap
-				googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI71ndio2s7kJpHicofZyytGLd0sn3s8E&v=3"
-				loadingElement={<div style={{ height: `100%` }} />}
-				containerElement={ <div style={{ height: `800px`, width: '800px' }} /> }
-				mapElement={ <div style={{ height: `100%` }} /> }
-				isMarkerShown
+					googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDI71ndio2s7kJpHicofZyytGLd0sn3s8E&v=3"
+					loadingElement={<div style={{ height: `100%` }} />}
+					containerElement={ <div style={{ height: `800px`, width: '800px' }} /> }
+					mapElement={ <div style={{ height: `100%` }} /> }
+					isMarkerShown
 				/>		
 				
 			</div>
