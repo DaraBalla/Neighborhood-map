@@ -43,7 +43,7 @@ class List extends Component {
     
 
 		return (
-      <div>
+      <div id="mainContent">
             <div id= "list">
               <Link className="add-new-playground" to='/add'>
                 <div className='plus-sign'></div>
