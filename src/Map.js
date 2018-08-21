@@ -11,13 +11,13 @@ class Map extends Component {
 
 
 	//Load the map after rendering the DOM
-	componentDidMount() {
+	componentDidMount = () => {
 		this.loadPlaces()
 		
 	}
 
 	//Load the map with the proper KEY using the initMap function
-	loadScript() {
+	loadScript = () => {
 		createScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDI71ndio2s7kJpHicofZyytGLd0sn3s8E&callback=initMap")
 		window.initMap = this.initMap;
 	}
@@ -26,23 +26,41 @@ class Map extends Component {
 	initMap = () => {
 		var map = new window.google.maps.Map(document.getElementById('map'), {
 			center: {lat: 49.936089, lng: 17.973804},
-			zoom: 10
+			zoom: 10,
+			//onClick: 
 		});
 		
 		this.state.places.map(place => {
 			var lat = place.venue.location.lat
 			var lng = place.venue.location.lng
 			var name = place.venue.name
+			
 			var marker = new window.google.maps.Marker({
 				position: {lat: lat, lng: lng},
 				map: map,
-				title: 	name
+				title: name
 			})
+
+			var infowindow = new window.google.maps.InfoWindow({
+				content: name
+			});
+
+			marker.addListener('click', function() {
+				infowindow.open(map, marker)
+			});
+
+			map.addListener('click', function() {
+				infowindow.close()
+			});
+
 		})
+
+		
+
 	}
 
 	//Fetch Foursquare API data using axios (search for "playgrounds" near the "center" of the map)
-	loadPlaces() {
+	loadPlaces = () => {
 		
 		axios.get('https://api.foursquare.com/v2/venues/explore?client_id=OR4GRJXCDX0LRD5QLD0WNGWYF3X1DRO0DJC02T4LIRY1WCVF&client_secret=5JX4DRFPLNQUZVWUOY2KSUJCEFOX5X3USMZJHHW4PI5RUAEH&v=20180323&limit=50&ll=49.9,17.9&query=playground')
 		.then(response => {
@@ -57,7 +75,7 @@ class Map extends Component {
 		})
 	}
 
-	render() {
+	render = () => {
 		
 		//searchedPlaygrounds = this.props.searchedPlaygroundsFromList
 		console.log(this.state.places)
