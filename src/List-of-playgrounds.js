@@ -27,7 +27,7 @@ class List extends Component {
                   id="search-field"
                   value={this.props.search}
                   onChange={(event) => 
-                  this.searchAsk(event.target.value)}
+                  this.props.searchAsk(event.target.value)}
                 />
               </div>
                   {/*{JSON.stringify(this.state.search)}*/}
@@ -35,7 +35,7 @@ class List extends Component {
               <ol id="list">
                 {searchedPlaygrounds.map((playground) => (
                   <li key={playground.lng}>
-                    {playground.city}, {playground.address}
+                    {playground.venue.location.city}, {playground.venue.location.address}
                   </li>
                   ))}
               </ol>

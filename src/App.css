@@ -58,7 +58,7 @@
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  color: white;
+  color: red;
   width: 100%;
   height: 80%;
 }
@@ -84,10 +84,11 @@
         }  
 
         #list li {
-          padding: 5px
+          padding: 5px;
+          color: white; 
         }
 
-        
+
   #map {
     height: 80vh;
     width: 69vw;

@@ -133,11 +133,11 @@ class MainPage extends Component {
     
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
-      searchedPlaygrounds = this.state.playgroundsDetail.filter((playground) => result.test(playground.city))
-      searchedPlaygrounds.sort(sortBy('address'))
+      searchedPlaygrounds = this.state.places.filter((playground) => result.test(playground.venue.location.city))
+      searchedPlaygrounds.sort(sortBy('venue.location.address'))
     } else {
-      searchedPlaygrounds = this.state.playgroundsDetail
-      searchedPlaygrounds.sort(sortBy('city'))
+      searchedPlaygrounds = this.state.places
+      searchedPlaygrounds.sort(sortBy('venue.location.city'))
     }
 
     return (
@@ -145,10 +145,15 @@ class MainPage extends Component {
 				 <Header/>
 			
 				<div id="main">          
-						<List playgrounds={this.state.playgroundsDetail} searchedPlaygroundsFromList={searchedPlaygrounds} search={this.state.search}/>            
+            <List 
+              playgrounds={this.state.playgroundsDetail} 
+              searchedPlaygroundsFromList={searchedPlaygrounds} 
+              search={this.state.search} 
+              places={this.state.places}
+              searchAsk={this.searchAsk}/>            
 					  <Map playgroundss={this.state.playgroundsDetail} searchedPlaygroundsFromList={searchedPlaygrounds} places={this.state.places}/>				
 				</div>
-        
+
 			</div>          
 		)
 	}
