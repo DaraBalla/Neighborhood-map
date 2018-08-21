@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://daraballa.github.io/Neighborhood-map/",
   "dependencies": {
+    "axios": "^0.18.0",
     "escape-string-regexp": "^1.0.5",
     "form-serialize": "^0.7.2",
     "gh-pages": "^1.2.0",
