@@ -67,11 +67,15 @@ class Map extends Component {
 			// handle success
 			this.setState({ 
 				places: response.data.response.groups[0].items
-			}, this.loadScript())
+			})
 		})
 		.catch(error => {
 			// handle error
-			console.log("Sorry, this error has occured: " + error);
+			alert("Sorry! Foursquare data didn't load correctly, not your fault! This error has occured: " + error); 
+		})
+		.then(() => {
+			// load map in any case (with or without Foursquare data)
+			this.loadScript()
 		})
 	}
 
