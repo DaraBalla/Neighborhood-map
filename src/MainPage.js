@@ -3,52 +3,15 @@ import List from './List-of-playgrounds'
 import Header from './Header'
 import Map from './Map'
 import axios from 'axios'
-import ReactPropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
 let searchedPlaygrounds
+var map
 
 class MainPage extends Component {
 
 	state = {
-    playgroundsDetail: [
-      {
-        "city": "Velké Hoštice",
-        "address": "Zámecká 197",
-        "lat": 49.933055,
-        "lng": 17.972581,
-        "equipment": []
-      },
-      {
-        "city": "Velké Hoštice",
-        "address": "Akátová 461",
-        "lat": 49.940359,
-        "lng": 17.969912,
-        "equipment": []
-      },
-      {
-        "city": "Velké Hoštice",
-        "address": "Mírova 119",
-        "lat": 49.927919,
-        "lng": 17.978811,
-        "equipment": []
-      },
-      {
-        "city": "Kravaře",
-        "address": "Mírová 3033/27",
-        "lat": 49.930684,
-        "lng": 17.996235,
-        "equipment": []
-      },
-      {
-        "city": "Velké Hoštice",
-        "address": "Pekliska 48",
-        "lat": 49.939094,
-        "lng": 17.97441,
-        "equipment": []
-      }
-    ],
     places: [],
     search: ''    
   }
@@ -65,39 +28,42 @@ class MainPage extends Component {
 		window.initMap = this.initMap;
 	}
 
-
+  
 	//Initialize map in a <div id="map"> and set the center and zoom
 	initMap = () => {
-		var map = new window.google.maps.Map(document.getElementById('map'), {
+		  map = new window.google.maps.Map(document.getElementById('map'), {
 			center: {lat: 49.936089, lng: 17.973804},
 			zoom: 10			
-		});
-		
-		this.state.places.map(place => {
-			var lat = place.venue.location.lat
-			var lng = place.venue.location.lng
-			var name = place.venue.name
-			
-			var marker = new window.google.maps.Marker({
-				position: {lat: lat, lng: lng},
-				map: map,
-				title: name
-			})
+    });
+    
+  }
 
-			var infowindow = new window.google.maps.InfoWindow({
-				content: name
-			});
+  //Initialize markers with InwoWindows
+  initMarkers = (point) => {
 
-			marker.addListener('click', function() {
-				infowindow.open(map, marker)
-			});
+    var lat = point.venue.location.lat
+        var lng = point.venue.location.lng
+        var name = point.venue.name
+        
+        let marker = new window.google.maps.Marker({
+          position: {lat: lat, lng: lng},
+          map: map,
+          title: name
+        })
 
-			map.addListener('click', function() {
-				infowindow.close()
-			});
-		})
-	}
+        let infowindow = new window.google.maps.InfoWindow({
+          content: name
+        });
 
+        marker.addListener('click', function() {
+          infowindow.open(map, marker)
+        });
+
+        map.addListener('click', function() {
+          infowindow.close()
+        })
+      }
+  
 
 	//Fetch Foursquare API data using axios (search for "playgrounds" near the "center" of the map)
 	loadPlaces = () => {
@@ -119,10 +85,6 @@ class MainPage extends Component {
 		})
 	}
 
-  static ReactPropTypes = {
-    playgroundsDetail: ReactPropTypes.array.isRequired
-  }
-
   searchAsk = (ask) => {
     this.setState({
       search: ask.trim()
@@ -135,9 +97,16 @@ class MainPage extends Component {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
       searchedPlaygrounds = this.state.places.filter((playground) => result.test(playground.venue.location.city))
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
+      searchedPlaygrounds.map(playground => {
+        this.initMarkers(playground)
+      })
+      
     } else {
       searchedPlaygrounds = this.state.places
       searchedPlaygrounds.sort(sortBy('venue.location.city'))
+      searchedPlaygrounds.map(playground => {
+        //this.initMarkers(playground)
+      })
     }
 
     return (
@@ -146,12 +115,17 @@ class MainPage extends Component {
 			
 				<div id="main">          
             <List 
-              playgrounds={this.state.playgroundsDetail} 
-              searchedPlaygroundsFromList={searchedPlaygrounds} 
+              searchedPlaygrounds={searchedPlaygrounds} 
               search={this.state.search} 
               places={this.state.places}
-              searchAsk={this.searchAsk}/>            
-					  <Map playgroundss={this.state.playgroundsDetail} searchedPlaygroundsFromList={searchedPlaygrounds} places={this.state.places}/>				
+              searchAsk={this.searchAsk}
+              infowindow={this.initMap.infowindow}
+              map={this.map}           
+              marker={this.marker}
+              name={this.name}/>            
+            <Map 
+              searchedPlaygrounds={searchedPlaygrounds} 
+              places={this.state.places}/>				
 				</div>
 
 			</div>          

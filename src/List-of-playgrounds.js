@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom'
 
 class List extends Component {
 
+
+
+
   render () {
 
     /* Pro přehlednost pak zaměnit:
         const { search } = this.state
         const { playgrounds } = this.props */
     
-    let searchedPlaygrounds = this.props.searchedPlaygroundsFromList
+    let searchedPlaygrounds = this.props.searchedPlaygrounds
 
 		return (
       
@@ -34,7 +37,13 @@ class List extends Component {
 
               <ol id="list">
                 {searchedPlaygrounds.map((playground) => (
-                  <li key={playground.lng}>
+                  <li key={playground.lng} 
+                      onClick={() => { //jak vytvořit listener na klik on list item to show infowindow???
+                        var infowindow = new window.google.maps.InfoWindow({
+                        content: playground.venue.name
+                        });
+                        infowindow.open(this.props.map, playground.marker)
+                      }}>
                     {playground.venue.location.city}, {playground.venue.location.address}
                   </li>
                   ))}
