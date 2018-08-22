@@ -109,22 +109,19 @@ class MainPage extends Component {
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
       
       markers.map(marker =>
-        marker.setMap())
+        marker.setMap(null))
       
       var searchedMarkers = this.state.markers.filter((marker) => result.test(marker.title))
       searchedMarkers.map(marker => {
         marker.setMap()
       })
 
-
-
-
     } else {
       searchedPlaygrounds = this.state.places
       searchedPlaygrounds.sort(sortBy('venue.location.city'))
-      searchedMarkers = this.state.markers 
+      /*searchedMarkers = this.state.markers 
       searchedMarkers.map(marker => {
-        marker.setMap()})
+        marker.setMap()})*/
     }
     
     
