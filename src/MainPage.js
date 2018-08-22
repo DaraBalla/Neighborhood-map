@@ -8,12 +8,14 @@ import sortBy from 'sort-by'
 
 let searchedPlaygrounds
 var map
+let markers = []
 
 class MainPage extends Component {
 
 	state = {
     places: [],
-    search: ''    
+    search: '',
+    markers: []    
   }
 
 	//Load the map after rendering the DOM
@@ -36,19 +38,17 @@ class MainPage extends Component {
 			zoom: 10			
     });
     
-  }
+    this.state.places.map(place => {
 
-  //Initialize markers with InwoWindows
-  initMarkers = (point) => {
-
-    var lat = point.venue.location.lat
-        var lng = point.venue.location.lng
-        var name = point.venue.name
+        var lat = place.venue.location.lat
+        var lng = place.venue.location.lng
+        var name = place.venue.name
+        var city = place.venue.location.city
         
         let marker = new window.google.maps.Marker({
           position: {lat: lat, lng: lng},
           map: map,
-          title: name
+          title: city
         })
 
         let infowindow = new window.google.maps.InfoWindow({
@@ -62,9 +62,17 @@ class MainPage extends Component {
         map.addListener('click', function() {
           infowindow.close()
         })
-      }
-  
 
+        markers.push(marker)
+
+        if (markers.length == 6) {
+         this.setState({
+            markers: markers
+          })
+        }
+      })
+   }
+   
 	//Fetch Foursquare API data using axios (search for "playgrounds" near the "center" of the map)
 	loadPlaces = () => {
 		
@@ -95,19 +103,33 @@ class MainPage extends Component {
     
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
+      
+      //
       searchedPlaygrounds = this.state.places.filter((playground) => result.test(playground.venue.location.city))
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
-      searchedPlaygrounds.map(playground => {
-        this.initMarkers(playground)
-      })
       
+      markers.map(marker =>
+        marker.setMap())
+      
+      var searchedMarkers = this.state.markers.filter((marker) => result.test(marker.title))
+      searchedMarkers.map(marker => {
+        marker.setMap()
+      })
+
+
+
+
     } else {
       searchedPlaygrounds = this.state.places
       searchedPlaygrounds.sort(sortBy('venue.location.city'))
-      searchedPlaygrounds.map(playground => {
-        //this.initMarkers(playground)
-      })
+      searchedMarkers = this.state.markers 
+      searchedMarkers.map(marker => {
+        marker.setMap()})
     }
+    
+    
+    console.log(markers)
+
 
     return (
       <div className="mainPage">
