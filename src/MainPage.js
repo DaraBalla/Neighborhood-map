@@ -15,7 +15,8 @@ class MainPage extends Component {
 	state = {
     places: [],
     search: '',
-    markers: []    
+    markers: [],
+    searchedPlaces: []    
   }
 
 	//Load the map after rendering the DOM
@@ -46,8 +47,8 @@ class MainPage extends Component {
         var city = place.venue.location.city
         
         let marker = new window.google.maps.Marker({
-          position: {lat: lat, lng: lng},
-          map: map,
+          id: lat,
+          position: {lat: lat, lng: lng},          
           title: city
         })
 
@@ -65,7 +66,7 @@ class MainPage extends Component {
 
         markers.push(marker)
 
-        if (markers.length == 6) {
+        if (markers.length === 6) {
          this.setState({
             markers: markers
           })
@@ -76,22 +77,68 @@ class MainPage extends Component {
 	//Fetch Foursquare API data using axios (search for "playgrounds" near the "center" of the map)
 	loadPlaces = () => {
 		
-		axios.get('https://api.foursquare.com/v2/venues/explore?client_id=OR4GRJXCDX0LRD5QLD0WNGWYF3X1DRO0DJC02T4LIRY1WCVF&client_secret=5JX4DRFPLNQUZVWUOY2KSUJCEFOX5X3USMZJHHW4PI5RUAEH&v=20180323&limit=50&ll=49.9,17.9&query=playground')
-		.then(response => {
-			// handle success
-			this.setState({ 
-				places: response.data.response.groups[0].items
-			})
-		})
-		.catch(error => {
-			// handle error
-			alert("Sorry! Foursquare data didn't load correctly, not your fault! This error has occured: " + error); 
-		})
-		.then(() => {
-			// load map in any case (with or without Foursquare data)
-			this.loadScript()
-		})
+      axios.get('https://api.foursquare.com/v2/venues/explore?client_id=OR4GRJXCDX0LRD5QLD0WNGWYF3X1DRO0DJC02T4LIRY1WCVF&client_secret=5JX4DRFPLNQUZVWUOY2KSUJCEFOX5X3USMZJHHW4PI5RUAEH&v=20180323&limit=50&ll=49.9,17.9&query=playground')
+      .then(response => {
+        // handle success
+        this.setState({ 
+          places: response.data.response.groups[0].items
+        })
+      })
+      .catch(error => {
+        // handle error
+        alert("Sorry! Foursquare data didn't load correctly, not your fault! This error has occured: " + error); 
+      })
+      .then(() => {
+        // load map in any case (with or without Foursquare data)
+        this.loadScript()
+      })
 	}
+
+  
+  
+
+  showMarkers = (array) => {
+
+    //Store all locations latitudes of the array items 
+    var searchedPlaygroundsLat = []
+    
+    //Loop through the array items, store their locations latitudes in a var locLat and push them in the 'searchedPlaygroundsLat' array
+    array.map(sp => {
+      var locLat = sp.venue.location.lat
+      searchedPlaygroundsLat.push(locLat)
+    })
+    
+    console.log(searchedPlaygroundsLat)
+      
+
+    var markerPosition = []                                                                                                    
+   
+   
+    //Loop through all markers
+    markers.map(marker => {
+      var markerId = marker.id
+      markerPosition.push(markerId)
+
+      console.log(markerPosition)
+  
+
+      // - if markers id number is in the 'searchedPlaygroundsLat' array, show the marker on the map
+      if(searchedPlaygroundsLat.some(x => x = markerId)) {
+        marker.setMap(map)
+      }
+      // - if there is no match, set that marker setMap to null
+      else {
+        marker.setMap(null)
+      }
+    })
+    
+        //This is for my check that it should be a match
+        if(searchedPlaygroundsLat[3] === markerPosition[3]) {
+          console.log("Match!")
+        } else {
+          console.log("not match!")
+        }
+  }
 
   searchAsk = (ask) => {
     this.setState({
@@ -104,28 +151,16 @@ class MainPage extends Component {
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')
       
-      //
       searchedPlaygrounds = this.state.places.filter((playground) => result.test(playground.venue.location.city))
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
-      
-      markers.map(marker =>
-        marker.setMap(null))
-      
-      var searchedMarkers = this.state.markers.filter((marker) => result.test(marker.title))
-      searchedMarkers.map(marker => {
-        marker.setMap()
-      })
-
+      this.showMarkers(searchedPlaygrounds)
     } else {
       searchedPlaygrounds = this.state.places
       searchedPlaygrounds.sort(sortBy('venue.location.city'))
-      /*searchedMarkers = this.state.markers 
-      searchedMarkers.map(marker => {
-        marker.setMap()})*/
+      this.showMarkers(searchedPlaygrounds)
     }
     
     
-    console.log(markers)
 
 
     return (
