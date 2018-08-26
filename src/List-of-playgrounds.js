@@ -44,7 +44,7 @@ class List extends Component {
                         });
                         infowindow.open(this.props.map, playground.marker)
                       }}>
-                    {playground.venue.location.city}, {playground.venue.location.address}
+                    {playground.title}
                   </li>
                   ))}
               </ol>
