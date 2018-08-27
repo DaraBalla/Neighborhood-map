@@ -69,7 +69,8 @@ class MainPage extends Component {
       searchedPlaygrounds.sort(sortBy('venue.location.city'))
       
     }
-    markers = []
+
+    markers = [];
 
     let infowindow = new window.google.maps.InfoWindow();
 
@@ -83,8 +84,9 @@ class MainPage extends Component {
         let marker = new window.google.maps.Marker({
           id: lat,
           position: {lat: lat, lng: lng},          
-          title: city,
-          map: map
+          title: name,
+          map: map,
+          name: city
         })
 
         
@@ -92,16 +94,16 @@ class MainPage extends Component {
 
         marker.addListener('click', function() {
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
-            setTimeout(function(){
-              marker.setAnimation(null)}, 200),
-          infowindow.setContent(city),
+            setTimeout(function() {
+              marker.setAnimation(null)}, 200);
+          infowindow.setContent(name);
           infowindow.open(map, marker)
         });
 
         infoWinds.push(infowindow)
 
         map.addListener('click', function() {
-          infowindow.close(),
+          infowindow.close();
           marker.setAnimation(null)
         })
 

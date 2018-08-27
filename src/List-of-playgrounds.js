@@ -4,22 +4,14 @@ import { Link } from 'react-router-dom'
 
 class List extends Component {
 
+  //Insipiration from: https://stackoverflow.com/questions/18333679/google-maps-open-info-window-after-click-on-a-link
   clickOnItem = (playground) => {
     for(let marker of this.props.markers) {
-      if(marker.id = playground.id) {
+      if(marker.id === playground.id) {
         window.google.maps.event.trigger(playground, "click")}
-
-        /*playground.addListener('click', function() {
-          marker.setAnimation(window.google.maps.Animation.BOUNCE);
-            setTimeout(function(){
-              marker.setAnimation(null)}, 200)
-          this.props.infowindow.setContent(playground.city),
-          this.props.infowindow.open(this.props.map, this.props.marker)*/
         }
       }
     
-
-
 
   render () {
 
@@ -50,11 +42,11 @@ class List extends Component {
 
               <ol id="list">
                 {this.props.searchedPlaygrounds.map((playground) => (
-                  <li key={playground.lng} 
+                  <li key={playground.id} 
                       onClick={event => {
                         this.clickOnItem (playground)
                       }}>
-                    {playground.title}
+                    {playground.title} ({playground.name})
                   </li>
                   ))}
               </ol>
