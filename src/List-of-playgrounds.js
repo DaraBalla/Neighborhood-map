@@ -36,7 +36,7 @@ class List extends Component {
                   {/*{JSON.stringify(this.state.search)}*/}
 
               <ol id="list">
-                {searchedPlaygrounds.map((playground) => (
+                {this.props.searchedPlaygrounds.map((playground) => (
                   <li key={playground.lng} 
                       onClick={() => { //jak vytvořit listener na klik on list item to show infowindow???
                         var infowindow = new window.google.maps.InfoWindow({

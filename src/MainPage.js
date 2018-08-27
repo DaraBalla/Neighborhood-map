@@ -67,9 +67,11 @@ class MainPage extends Component {
       searchedPlaygrounds.sort(sortBy('venue.location.city'))
       
     }
-    
+    markers = []
     searchedPlaygrounds.map(place => {
 
+
+        
         var lat = place.venue.location.lat
         var lng = place.venue.location.lng
         var name = place.venue.name
@@ -98,7 +100,9 @@ class MainPage extends Component {
 
       })
 
-      
+      this.setState({
+        searchedPlaces: markers
+      })
    }
    
 	
@@ -148,7 +152,7 @@ class MainPage extends Component {
 			
 				<div id="main">          
             <List 
-              searchedPlaygrounds={markers} 
+              searchedPlaygrounds={this.state.searchedPlaces} 
               search={this.state.search} 
               places={this.state.places}
               searchAsk={this.searchAsk}
@@ -157,7 +161,7 @@ class MainPage extends Component {
               marker={this.marker}
               name={this.name}/>            
             <Map 
-              searchedPlaygrounds={markers} 
+              searchedPlaygrounds={this.state.searchedPlaces} 
               places={this.state.places}/>				
 				</div>
 
