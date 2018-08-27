@@ -88,7 +88,7 @@ class MainPage extends Component {
         })
 
         
-        infoWinds.push(infowindow)
+        
 
         marker.addListener('click', function() {
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
@@ -97,6 +97,8 @@ class MainPage extends Component {
           infowindow.setContent(city),
           infowindow.open(map, marker)
         });
+
+        infoWinds.push(infowindow)
 
         map.addListener('click', function() {
           infowindow.close(),
@@ -167,7 +169,8 @@ class MainPage extends Component {
               map={this.map}           
               marker={this.marker}
               name={this.name}
-              infoWinds={infoWinds}/>            
+              infoWinds={infoWinds}
+              markers={markers}/>            
             <Map 
               searchedPlaygrounds={this.state.searchedPlaces} 
               places={this.state.places}/>				

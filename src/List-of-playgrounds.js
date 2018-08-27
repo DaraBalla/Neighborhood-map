@@ -4,13 +4,21 @@ import { Link } from 'react-router-dom'
 
 class List extends Component {
 
-  clickOnItem = (id) => {
-    for (let infoWinds of this.props.infoWinds) {
-      if (id = infoWinds.id) {
-        infoWinds.open(this.props.map, this.props.marker)
+  clickOnItem = (playground) => {
+    for(let marker of this.props.markers) {
+      if(marker.id = playground.id) {
+        window.google.maps.event.trigger(playground, "click")}
+
+        /*playground.addListener('click', function() {
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+            setTimeout(function(){
+              marker.setAnimation(null)}, 200)
+          this.props.infowindow.setContent(playground.city),
+          this.props.infowindow.open(this.props.map, this.props.marker)*/
+        }
       }
-  }
-}
+    
+
 
 
   render () {
@@ -44,7 +52,7 @@ class List extends Component {
                 {this.props.searchedPlaygrounds.map((playground) => (
                   <li key={playground.lng} 
                       onClick={event => {
-                        this.clickOnItem(playground.id)
+                        this.clickOnItem (playground)
                       }}>
                     {playground.title}
                   </li>
