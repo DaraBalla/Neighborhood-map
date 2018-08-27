@@ -91,18 +91,13 @@ class MainPage extends Component {
         infoWinds.push(infowindow)
 
         marker.addListener('click', function() {
+          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+            setTimeout(function(){
+              marker.setAnimation(null)}, 200),
           infowindow.setContent(city),
-          infowindow.open(map, marker),
-          toggleBounce()
+          infowindow.open(map, marker)
         });
 
-        function toggleBounce() {
-          if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(window.google.maps.Animation.BOUNCE);
-          }
-        }
         map.addListener('click', function() {
           infowindow.close(),
           marker.setAnimation(null)
