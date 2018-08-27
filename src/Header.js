@@ -22,6 +22,7 @@ class Header extends Component {
 				<p className="App-intro">
 					Let's start to discover amazing places for your children! 
 				</p>
+				<p className="FSQ-declaration">*All data are from the Foursquare API*</p>
 				
       </header>
 		)
