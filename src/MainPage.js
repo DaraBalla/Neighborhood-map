@@ -49,6 +49,7 @@ class MainPage extends Component {
     })*/
   }
   
+  
 	//Initialize map in a <div id="map"> and set the center and zoom
 	initMap = () => {
 		  map = new window.google.maps.Map(document.getElementById('map'), {
@@ -68,10 +69,9 @@ class MainPage extends Component {
       
     }
     markers = []
+    
     searchedPlaygrounds.map(place => {
-
-
-        
+  
         var lat = place.venue.location.lat
         var lng = place.venue.location.lng
         var name = place.venue.name
@@ -89,11 +89,20 @@ class MainPage extends Component {
         });
 
         marker.addListener('click', function() {
-          infowindow.open(map, marker)
+          infowindow.open(map, marker),
+          toggleBounce()
         });
 
+        function toggleBounce() {
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(window.google.maps.Animation.BOUNCE);
+          }
+        }
         map.addListener('click', function() {
-          infowindow.close()
+          infowindow.close(),
+          marker.setAnimation(null)
         })
 
         markers.push(marker)
