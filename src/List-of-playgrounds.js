@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom'
 
 class List extends Component {
 
-
+  clickOnItem = (id) => {
+    for (let infoWinds of this.props.infoWinds) {
+      if (id = infoWinds.id) {
+        infoWinds.open(this.props.map, this.props.marker)
+      }
+  }
+}
 
 
   render () {
@@ -13,8 +19,7 @@ class List extends Component {
         const { search } = this.state
         const { playgrounds } = this.props */
     
-    let searchedPlaygrounds = this.props.searchedPlaygrounds
-
+    
 		return (
       
             <div id= "sidebar">
@@ -38,11 +43,8 @@ class List extends Component {
               <ol id="list">
                 {this.props.searchedPlaygrounds.map((playground) => (
                   <li key={playground.lng} 
-                      onClick={() => { //jak vytvořit listener na klik on list item to show infowindow???
-                        var infowindow = new window.google.maps.InfoWindow({
-                        content: playground.venue.name
-                        });
-                        infowindow.open(this.props.map, playground.marker)
+                      onClick={event => {
+                        this.clickOnItem(playground.id)
                       }}>
                     {playground.title}
                   </li>

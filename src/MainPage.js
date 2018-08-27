@@ -9,6 +9,7 @@ import sortBy from 'sort-by'
 let searchedPlaygrounds
 var map
 let markers = []
+let infoWinds = []
 
 class MainPage extends Component {
 
@@ -69,7 +70,9 @@ class MainPage extends Component {
       
     }
     markers = []
-    
+
+    let infowindow = new window.google.maps.InfoWindow();
+
     searchedPlaygrounds.map(place => {
   
         var lat = place.venue.location.lat
@@ -84,11 +87,11 @@ class MainPage extends Component {
           map: map
         })
 
-        let infowindow = new window.google.maps.InfoWindow({
-          content: name
-        });
+        
+        infoWinds.push(infowindow)
 
         marker.addListener('click', function() {
+          infowindow.setContent(city),
           infowindow.open(map, marker),
           toggleBounce()
         });
@@ -168,7 +171,8 @@ class MainPage extends Component {
               infowindow={this.initMap.infowindow}
               map={this.map}           
               marker={this.marker}
-              name={this.name}/>            
+              name={this.name}
+              infoWinds={infoWinds}/>            
             <Map 
               searchedPlaygrounds={this.state.searchedPlaces} 
               places={this.state.places}/>				
