@@ -15,11 +15,6 @@ class List extends Component {
 
   render () {
 
-    /* Pro přehlednost pak zaměnit:
-        const { search } = this.state
-        const { playgrounds } = this.props */
-    
-    
 		return (
       
             <div id= "sidebar">
@@ -38,8 +33,7 @@ class List extends Component {
                   this.props.searchAsk(event.target.value)}
                 />
               </div>
-                  {/*{JSON.stringify(this.state.search)}*/}
-
+                  
               <ol id="list">
                 {this.props.searchedPlaygrounds.map((playground) => (
                   <li key={playground.id} 
