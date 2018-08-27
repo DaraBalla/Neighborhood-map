@@ -49,6 +49,7 @@ class NewPlayground extends Component {
                   <input type="text" name="Street" placeholder="Street"/>
                   <button className="adding-playground">Add new playground</button>
                 </form>
+                <p>This additional feature will be updated in the future. It is not compulsory for the project review, so it doesn't work now.</p>
             </div>
         )
     }
