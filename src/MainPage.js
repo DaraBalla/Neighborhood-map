@@ -14,8 +14,8 @@ class MainPage extends Component {
 	state = {
     places: [],
     search: '',
-    markers: [],
-    searchedPlaces: []    
+    searchedPlaces: [],
+    searchedPlaygrounds: []
   }
 
 	//Load the map after rendering the DOM
@@ -60,14 +60,14 @@ class MainPage extends Component {
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')      
       searchedPlaygrounds = this.state.places.filter((playground) => result.test(playground.venue.location.city))
-      searchedPlaygrounds.sort(sortBy('venue.location.address'))    
+      searchedPlaygrounds.sort(sortBy('venue.location.address'))
     // if there is no input, the array searchedPlaygrounds contains all places    
     } else {
       searchedPlaygrounds = this.state.places
-      searchedPlaygrounds.sort(sortBy('venue.location.city'))      
+      searchedPlaygrounds.sort(sortBy('venue.location.city')) 
     }
 
-    //for storing all searched markers
+    //for storing all searched markers - make the array empty
     markers = [];
 
     //create a single infowindow
