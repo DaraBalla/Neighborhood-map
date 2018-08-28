@@ -27,11 +27,17 @@
       align-items: center; /* Na výšku */
     }
 
+    .hamb-menu {
+      display: none;
+    }
+
+        
         .App-logo {
           animation: App-logo-spin infinite 10s linear;
           height: 60px;
           width: 60px;
           border-radius: 50px;
+          margin-left: 50px;
         }
 
         .App-title {
@@ -49,6 +55,7 @@
       margin: auto;
     }
 
+/*from default react file*/
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -62,13 +69,16 @@
   width: 100%;
   height: 80%;
 }
-  #sidebar {
-        height: 100vh;
+
+
+  .sidebar {
+        height: 85vh;
         width: 29vw;
       }
       
     #add-new-playground {
-      padding: 2px
+      padding: 2px;
+      background-color: white;
     }
     
      #search-field {
@@ -78,24 +88,67 @@
         }
       #list {
         background-color: black;
-        height: 75%;
+        height: 90%;
         margin-top: -15px;
         padding-top: 20px;
         }  
 
         #list li {
           padding: 5px;
-          color: white; 
+          color: white;
+          cursor: pointer; 
         }
 
 
   #map {
-    height: 80vh;
+    height: 85vh;
     width: 69vw;
     
   }
 
-        
+  @media screen and (max-width: 850px) {
+    
+
+    #map {
+      height: 85vh;
+      width: 100vw;
+      
+    }
+
+    #main {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .hamb-menu {
+      background-color: white;
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      left: 20px;
+      display: block;
+    }
+    
+    .show-menu {
+      background-color: red;
+    }
+
+    .sidebar {
+      display: none
+    }
+
+    .show-sidebar{
+      height: 85vh;
+      width: 50vw;
+      z-index: 11;
+      display: block;
+      position: absolute;
+      margin-top: 40px
+    }
+
+    
+   }        
     
         
 

@@ -17,7 +17,7 @@ class List extends Component {
 
 		return (
       
-            <div id= "sidebar">
+            <div className= "sidebar">
               <Link id="add-new-playground" to='/add'>
                 <div id="plus-sign"></div>
                 <div id="add-playground">Add new playground</div>

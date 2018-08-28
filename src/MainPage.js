@@ -125,7 +125,8 @@ class MainPage extends Component {
     
     return (
       <div className="mainPage">
-				 <Header/>
+				 
+        <Header/>
 			
 				<div id="main">          
             <List 

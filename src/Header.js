@@ -1,12 +1,25 @@
 import React, { Component } from 'react'
 
 class Header extends Component {
+	
+	showMenu = () => {
+		document.querySelector('.hamb-menu').classList.toggle('show-menu')
+		document.querySelector('.sidebar').classList.toggle('show-sidebar')
 		
+	}
+
+
 	render() {
     return (
 			<header className="App-header">
-            
+           		<img 
+					src={require("./img/activity-feed-128_b.png")} 
+					className="hamb-menu" alt="menu"
+					onClick={event => {this.showMenu()}} 
+				/>
 				<div id="firstLine">
+
+					
 
 					<img 
 						src={require("./img/play1.PNG")} 
