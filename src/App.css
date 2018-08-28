@@ -1,11 +1,5 @@
 * {
-  /*border: 1px solid red;*/
-  box-sizing: border-box;
-  
-}
-
-*:focus {
-  border: 3px solid red
+  box-sizing: border-box;  
 }
 
 .App {
@@ -17,50 +11,48 @@
   background-color: black;
   height: auto;
   padding: 20px;
-  color: white;
-  
+  color: white;  
 }
 
-    #firstLine {
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-      align-items: center; /* Na výšku */
-    }
+#firstLine {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  align-items: center; /* Na výšku */
+}
 
-    .hamb-menu {
-      display: none;
-    }
-
-        
-        .App-logo {
-          animation: App-logo-spin infinite 10s linear;
-          height: 60px;
-          width: 60px;
-          border-radius: 50px;
-          margin-left: 50px;
-        }
-
-        .App-title {
-          font-size: 1.5em;
-          width: auto;
-          text-align: center;
-          padding-left: 10px;
-        }
-
-    .App-intro {
-      font-size: large;
-      width: auto;
-      max-width: 470px;
-      text-align: center;
-      margin: auto;
-    }
+.hamb-menu {
+  display: none;
+}
+    
+.App-logo {
+  animation: App-logo-spin infinite 10s linear;
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  margin-left: 50px;
+}
 
 /*from default react file*/
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.App-title {
+  font-size: 1.5em;
+  width: auto;
+  text-align: center;
+  padding-left: 10px;
+}
+
+.App-intro {
+  font-size: large;
+  width: auto;
+  max-width: 470px;
+  text-align: center;
+  margin: auto;
 }
 
 #main {
@@ -72,85 +64,79 @@
   height: 80%;
 }
 
-
-  .sidebar {
-        height: 85vh;
-        width: 29vw;
-      }
-      
-    #add-new-playground {
-      padding: 2px;
-      background-color: white;
-    }
+.sidebar {
+  height: 85vh;
+  width: 29vw;
+}
     
-     #search-field {
-          padding: 10px;
-          height: 40px;
-          width: 100%;
-        }
-      #list {
-        background-color: black;
-        height: 90%;
-        margin-top: -15px;
-        padding-top: 20px;
-        }  
+#add-new-playground {
+  padding: 2px;
+  background-color: white;
+}
+  
+#search-field {
+  padding: 10px;
+  height: 40px;
+  width: 100%;
+}
 
-        #list li {
-          padding: 5px;
-          color: white;
-          cursor: pointer; 
-        }
+#list {
+  background-color: black;
+  height: 90%;
+  margin-top: -15px;
+  padding-top: 20px;
+}  
 
+#list li {
+  padding: 5px;
+  color: white;
+  cursor: pointer; 
+}
+
+#map {
+  height: 85vh;
+  width: 69vw;  
+}
+
+@media screen and (max-width: 850px) {  
 
   #map {
     height: 85vh;
-    width: 69vw;
-    
+    width: 100vw;    
   }
 
-  @media screen and (max-width: 850px) {
-    
+  #main {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
 
-    #map {
-      height: 85vh;
-      width: 100vw;
-      
-    }
+  .hamb-menu {
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    left: 20px;
+    display: block;
+  }
+  
+  .show-menu {
+    background-color: red;
+  }
 
-    #main {
-      display: inline-flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-    }
+  .sidebar {
+    display: none
+  }
 
-    .hamb-menu {
-      background-color: white;
-      height: 40px;
-      width: 40px;
-      position: absolute;
-      left: 20px;
-      display: block;
-    }
-    
-    .show-menu {
-      background-color: red;
-    }
-
-    .sidebar {
-      display: none
-    }
-
-    .show-sidebar{
-      height: 85vh;
-      width: 50vw;
-      z-index: 11;
-      display: block;
-      position: absolute;
-      margin-top: 40px
-    }
-
-    
-   }        
+  .show-sidebar{
+    height: 85vh;
+    width: 50vw;
+    z-index: 11;
+    display: block;
+    position: absolute;
+    margin-top: 40px
+  }  
+}        
     
         
 

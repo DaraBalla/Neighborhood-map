@@ -4,8 +4,7 @@ import MainPage from './MainPage'
 import NewPlayground from './Add-new-playground'
 import { Route } from 'react-router-dom'
 
-class App extends Component {
-  
+class App extends Component {  
 
   render() {
 
@@ -17,7 +16,8 @@ class App extends Component {
         />
         <Route path="/add" render={() => (
           <NewPlayground/>
-        )} />
+        )} 
+        />
       </div>
     );
   }

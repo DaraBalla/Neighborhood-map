@@ -27,7 +27,8 @@ class MainPage extends Component {
 	loadScript = () => {
 		createScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDI71ndio2s7kJpHicofZyytGLd0sn3s8E&callback=initMap")
 		window.initMap = this.initMap;
-	}
+  }
+  
   //Fetch Foursquare API data using axios (search for "playgrounds" near the "center" of the map)
   loadPlaces = () => {		
     axios.get('https://api.foursquare.com/v2/venues/explore?client_id=OR4GRJXCDX0LRD5QLD0WNGWYF3X1DRO0DJC02T4LIRY1WCVF&client_secret=5JX4DRFPLNQUZVWUOY2KSUJCEFOX5X3USMZJHHW4PI5RUAEH&v=20180323&limit=50&ll=49.9,17.9&query=playground')
@@ -50,9 +51,9 @@ class MainPage extends Component {
   
 	//Initialize map in a <div id="map"> and set the center and zoom
 	initMap = () => {
-		  map = new window.google.maps.Map(document.getElementById('map'), {
-			center: {lat: 49.936089, lng: 17.973804},
-			zoom: 10			
+    map = new window.google.maps.Map(document.getElementById('map'), {
+      center: {lat: 49.936089, lng: 17.973804},
+      zoom: 10			
     });
 
     //if there is some content in the state.search (= search input), filter the places and store them in the searchedPlaygrounds array
@@ -109,11 +110,11 @@ class MainPage extends Component {
 
       })
 
-      //push the markers array to the state
-      this.setState({
-        searchedPlaces: markers
-      })
-   }
+    //push the markers array to the state
+    this.setState({
+      searchedPlaces: markers
+    })
+  }
   
   //push the content of search field to the state and then reload the map
   searchAsk = (ask) => {
@@ -152,7 +153,10 @@ function createScript(www) {
 	anchor.parentNode.insertBefore(script, anchor);
 	script.src = www;
 	script.async = true;
-	script.defer = true;
+  script.defer = true;
+  script.onerror = (error) => {
+    alert("Sorry! Google Maps didn't load correctly, not your fault! This error has occured: " + error + ". Try to reload the page!")
+  }
 }
 
 export default MainPage
