@@ -4,7 +4,9 @@
   
 }
 
-
+*:focus {
+  border: 3px solid red
+}
 
 .App {
   text-align: center;

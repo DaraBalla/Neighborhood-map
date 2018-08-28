@@ -11,7 +11,12 @@ class List extends Component {
         window.google.maps.event.trigger(playground, "click")}
         }
       }
-    
+
+  pressEnterOnItem = (playground, event) => {
+    if (event.key === 'Enter') {
+    this.clickOnItem(playground)
+      }
+    }
 
   render () {
 
@@ -25,6 +30,8 @@ class List extends Component {
               <div id="search">
                 <div id="search-sign"></div>                
                 <input 
+                  aria-label="Search playground by city"
+                  role="search"
                   type="text" 
                   placeholder="Search place by City" 
                   id="search-field"
@@ -34,12 +41,18 @@ class List extends Component {
                 />
               </div>
                   
-              <ol id="list">
+              <ol id="list" aria-label="List of searched playgrounds">
                 {this.props.searchedPlaygrounds.map((playground) => (
-                  <li key={playground.id} 
-                      onClick={event => {
-                        this.clickOnItem (playground)
-                      }}>
+                  <li 
+                    tabIndex="0"
+                    role="button"
+                    onKeyPress={event => {
+                      this.pressEnterOnItem (playground, event)
+                    }}
+                    key={playground.id} 
+                    onClick={event => {
+                      this.clickOnItem (playground)
+                    }}>
                     {playground.title} ({playground.name})
                   </li>
                   ))}

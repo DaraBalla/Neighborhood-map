@@ -8,14 +8,24 @@ class Header extends Component {
 		
 	}
 
+	pressEnterOnMenu = (event) => {
+		if (event.key === 'Enter') {
+			this.showMenu()
+	}
+	}
 
 	render() {
     return (
 			<header className="App-header">
            		<img 
 					src={require("./img/activity-feed-128_b.png")} 
-					className="hamb-menu" alt="menu"
-					onClick={event => {this.showMenu()}} 
+					className="hamb-menu" 
+					alt="menu"
+					onClick={event => {this.showMenu()}}
+					tabIndex="0"
+					onKeyPress={event => {
+						this.pressEnterOnMenu (event)
+					  }}
 				/>
 				<div id="firstLine">
 
@@ -23,7 +33,8 @@ class Header extends Component {
 
 					<img 
 						src={require("./img/play1.PNG")} 
-						className="App-logo" alt="logo" 
+						className="App-logo" 
+						alt="logo" 
 					/>
 
 					<h1 className="App-title">
@@ -32,9 +43,9 @@ class Header extends Component {
 
 				</div>
 
-				<p className="App-intro">
+				<h2 className="App-intro">
 					Let's start to discover amazing places for your children! 
-				</p>
+				</h2>
 				<p className="FSQ-declaration">*All data are from the Foursquare API*</p>
 				
       </header>

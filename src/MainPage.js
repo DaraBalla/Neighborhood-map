@@ -85,7 +85,8 @@ class MainPage extends Component {
           position: {lat: lat, lng: lng},          
           title: name,
           map: map,
-          name: city
+          name: city,
+          label: "P"
         })
 
         //assign a click event to every marker
@@ -94,7 +95,7 @@ class MainPage extends Component {
           setTimeout(function() {
               marker.setAnimation(null)
           }, 200);
-          infowindow.setContent(name);
+          infowindow.setContent("<h3 tabIndex='0'>" + name + "</h3>");
           infowindow.open(map, marker)
         });
 
@@ -125,8 +126,7 @@ class MainPage extends Component {
     
     return (
       <div className="mainPage">
-				 
-        <Header/>
+				 <Header/>
 			
 				<div id="main">          
             <List 
@@ -135,9 +135,9 @@ class MainPage extends Component {
               searchAsk={this.searchAsk}
               markers={markers}
             />
-            <div id="map-container">
-				      <div id="map"></div>
-            </div>			
+            
+				    <div id="map" aria-label="google-map" role="application"></div>
+            			
 				</div>
 
 			</div>          
