@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom'
 
 class List extends Component {
 
+  state = {
+    query: ''
+  }
+
   //Insipiration from: https://stackoverflow.com/questions/18333679/google-maps-open-info-window-after-click-on-a-link
   clickOnItem = (playground) => {
     for(let marker of this.props.markers) {
@@ -16,6 +20,14 @@ class List extends Component {
     if (event.key === 'Enter') {
       this.clickOnItem(playground)
     }
+  }
+
+  onChangeInput = (event) => {
+    this.setState({
+      query: event.target.value
+    })
+
+    this.props.filterList(event.target.value)
   }
 
   render () {
@@ -35,9 +47,8 @@ class List extends Component {
             type="text" 
             placeholder="Search place by City" 
             id="search-field"
-            value={this.props.search}
-            onChange={(event) => 
-            this.props.searchAsk(event.target.value)}
+            value={this.state.query}
+            onChange={this.onChangeInput}
           />
         </div>
             
@@ -46,10 +57,10 @@ class List extends Component {
             <li 
               tabIndex="0"
               role="button"
+              key={playground.venue.location.lat} 
               onKeyPress={event => {
                 this.pressEnterOnItem (playground, event)
-              }}
-              key={playground.venue.location.labeledLatLngs.lat} 
+              }}              
               onClick={event => {
                 this.clickOnItem (playground)
               }}

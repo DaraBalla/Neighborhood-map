@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import List from './List-of-playgrounds'
 import Header from './Header'
 import axios from 'axios'
-import escapeRegExp from 'escape-string-regexp'
+//import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
-let searchedPlaygrounds
+//let searchedPlaygrounds
 var map
 let markers = []
+let searchedPlaygrounds
 
 class MainPage extends Component {
 
@@ -50,19 +51,12 @@ class MainPage extends Component {
       this.loadScript()
     })
   }
-  
-  
-	//Initialize map in a <div id="map"> and set the center and zoom
-	initMap = () => {
-    map = new window.google.maps.Map(document.getElementById('map'), {
-      center: {lat: 49.936089, lng: 17.973804},
-      zoom: 10			
-    });
-
-    //if there is some content in the state.search (= search input), filter the places and store them in the searchedPlaygrounds array
-    if (this.state.search) {
-      const result = new RegExp(escapeRegExp(this.state.search), 'i')      
-      searchedPlaygrounds = this.state.places.filter((playground) => playground.venue.location.city.includes(this.state.search))
+  //if there is some content in the state.search (= search input), filter the places and store them in the searchedPlaygrounds array
+  filterList = (query) => {
+    
+    if (query !== '') {
+      //const result = new RegExp(escapeRegExp(this.state.search), 'i')      
+      searchedPlaygrounds = this.state.places.filter((playground) => playground.venue.location.city.includes(query))
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
       this.setState({ searchedPlaygrounds }) 
     // if there is no input, the array searchedPlaygrounds contains all places    
@@ -71,6 +65,24 @@ class MainPage extends Component {
       searchedPlaygrounds.sort(sortBy('venue.location.city')) 
       this.setState({ searchedPlaygrounds })
     }
+    this.setState({
+      search: query
+    }, this.initMap())
+
+    let filteredMarkers = this.state.allMarkers.filter((marker) => marker.name.includes(query))
+    filteredMarkers.map(marker => {
+      marker.setMap(map)
+    })
+  }
+  
+	//Initialize map in a <div id="map"> and set the center and zoom
+	initMap = () => {
+    map = new window.google.maps.Map(document.getElementById('map'), {
+      center: {lat: 49.936089, lng: 17.973804},
+      zoom: 10			
+    });
+
+    
 
     //for storing all searched markers - make the array empty
     markers = [];
@@ -79,7 +91,7 @@ class MainPage extends Component {
     let infowindow = new window.google.maps.InfoWindow();
 
     console.log(this.state.search)
-    console.log(searchedPlaygrounds)
+    console.log(this.state.searchedPlaygrounds)
     
     //loop through searchedPlaygrounds and create them Markers
     this.state.places.map(place => {
@@ -123,10 +135,7 @@ class MainPage extends Component {
       allMarkers: markers
     })
 
-    let filteredMarkers = this.state.allMarkers.filter((marker) => marker.name.includes(this.state.search))
-    filteredMarkers.map(marker => {
-      marker.setMap(map)
-    })
+    
 
   }
   
@@ -134,10 +143,7 @@ class MainPage extends Component {
   searchAsk = (ask) => {
     this.setState({
       search: ask.trim()
-    }, this.setState({
-      search: ask.trim()
-    }, this.initMap()))
-    
+    }, this.initMap())    
   }
 
   render () {
@@ -151,7 +157,8 @@ class MainPage extends Component {
               searchedPlaygrounds={this.state.searchedPlaygrounds}
               search={this.state.search}
               searchAsk={this.searchAsk}
-              //markers={this.state.allMarkers}
+              markers={this.state.allMarkers}
+              filterList={this.filterList}
             />
             
 				    <div id="map" aria-label="google-map" role="application"></div>
