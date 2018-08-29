@@ -39,7 +39,8 @@ class MainPage extends Component {
     .then(response => {
       // handle success, store the loaded data in a state: places and then load script and initialize map
       this.setState({ 
-        places: response.data.response.groups[0].items
+        places: response.data.response.groups[0].items,
+        searchedPlaygrounds: response.data.response.groups[0].items
       })
     })
     .catch(error => {
@@ -51,6 +52,7 @@ class MainPage extends Component {
       this.loadScript()
     })
   }
+  
   //if there is some content in the state.search (= search input), filter the places and store them in the searchedPlaygrounds array
   filterList = (query) => {
     
@@ -143,7 +145,7 @@ class MainPage extends Component {
   searchAsk = (ask) => {
     this.setState({
       search: ask.trim()
-    }, this.initMap())    
+    })    
   }
 
   render () {

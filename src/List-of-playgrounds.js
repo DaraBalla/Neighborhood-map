@@ -10,7 +10,7 @@ class List extends Component {
   //Insipiration from: https://stackoverflow.com/questions/18333679/google-maps-open-info-window-after-click-on-a-link
   clickOnItem = (playground) => {
     for(let marker of this.props.markers) {
-      if(marker.id === playground.id) {
+      if(marker.title === playground.venue.name) {
         window.google.maps.event.trigger(playground, "click")
       }
     }
@@ -57,7 +57,7 @@ class List extends Component {
             <li 
               tabIndex="0"
               role="button"
-              key={playground.venue.location.lat} 
+              key={playground.venue.name} 
               onKeyPress={event => {
                 this.pressEnterOnItem (playground, event)
               }}              
