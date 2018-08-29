@@ -14,19 +14,22 @@ class MainPage extends Component {
 	state = {
     places: [],
     search: '',
-    searchedPlaces: [],
+    allMarkers: [],
     searchedPlaygrounds: []
   }
 
 	//Load the map after rendering the DOM
 	componentDidMount = () => {
-		this.loadPlaces()		
-	}
+		this.loadPlaces()      
+  }
 
 	//Load the Google map with the proper KEY using the initMap function
 	loadScript = () => {
 		createScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDI71ndio2s7kJpHicofZyytGLd0sn3s8E&callback=initMap")
-		window.initMap = this.initMap;
+    window.initMap = this.initMap;
+    window.gm_authFailure = function() {
+      alert("Google Map authorization error. Please try refreshing the page.");
+    }
   }
   
   //Fetch Foursquare API data using axios (search for "playgrounds" near the "center" of the map)
@@ -59,12 +62,14 @@ class MainPage extends Component {
     //if there is some content in the state.search (= search input), filter the places and store them in the searchedPlaygrounds array
     if (this.state.search) {
       const result = new RegExp(escapeRegExp(this.state.search), 'i')      
-      searchedPlaygrounds = this.state.places.filter((playground) => result.test(playground.venue.location.city))
+      searchedPlaygrounds = this.state.places.filter((playground) => playground.venue.location.city.includes(this.state.search))
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
+      this.setState({ searchedPlaygrounds }) 
     // if there is no input, the array searchedPlaygrounds contains all places    
     } else {
       searchedPlaygrounds = this.state.places
       searchedPlaygrounds.sort(sortBy('venue.location.city')) 
+      this.setState({ searchedPlaygrounds })
     }
 
     //for storing all searched markers - make the array empty
@@ -73,8 +78,11 @@ class MainPage extends Component {
     //create a single infowindow
     let infowindow = new window.google.maps.InfoWindow();
 
+    console.log(this.state.search)
+    console.log(searchedPlaygrounds)
+    
     //loop through searchedPlaygrounds and create them Markers
-    searchedPlaygrounds.map(place => {
+    this.state.places.map(place => {
   
         var lat = place.venue.location.lat
         var lng = place.venue.location.lng
@@ -85,7 +93,7 @@ class MainPage extends Component {
           id: lat,
           position: {lat: lat, lng: lng},          
           title: name,
-          map: map,
+          //map: map,
           name: city,
           label: "P"
         })
@@ -108,19 +116,28 @@ class MainPage extends Component {
         //store all markers in the array
         markers.push(marker)
 
-      })
+    })
 
     //push the markers array to the state
     this.setState({
-      searchedPlaces: markers
+      allMarkers: markers
     })
+
+    let filteredMarkers = this.state.allMarkers.filter((marker) => marker.name.includes(this.state.search))
+    filteredMarkers.map(marker => {
+      marker.setMap(map)
+    })
+
   }
   
   //push the content of search field to the state and then reload the map
   searchAsk = (ask) => {
     this.setState({
       search: ask.trim()
-    }, this.initMap())
+    }, this.setState({
+      search: ask.trim()
+    }, this.initMap()))
+    
   }
 
   render () {
@@ -129,17 +146,17 @@ class MainPage extends Component {
       <div className="mainPage">
 				 <Header/>
 			
-				<div id="main">          
+				<main id="main" role="main">          
             <List 
-              searchedPlaygrounds={this.state.searchedPlaces}
+              searchedPlaygrounds={this.state.searchedPlaygrounds}
               search={this.state.search}
               searchAsk={this.searchAsk}
-              markers={markers}
+              //markers={this.state.allMarkers}
             />
             
 				    <div id="map" aria-label="google-map" role="application"></div>
             			
-				</div>
+				</main>
 
 			</div>          
 		)

@@ -19,7 +19,7 @@ class List extends Component {
   }
 
   render () {
-
+      
 		return (
       
       <div className= "sidebar">
@@ -49,12 +49,12 @@ class List extends Component {
               onKeyPress={event => {
                 this.pressEnterOnItem (playground, event)
               }}
-              key={playground.id} 
+              key={playground.venue.location.labeledLatLngs.lat} 
               onClick={event => {
                 this.clickOnItem (playground)
               }}
             >
-              {playground.title} ({playground.name})
+              {playground.venue.name} ({playground.venue.location.city})
             </li>
           ))}
         </ol>
