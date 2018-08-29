@@ -9,11 +9,14 @@ class List extends Component {
 
   //Insipiration from: https://stackoverflow.com/questions/18333679/google-maps-open-info-window-after-click-on-a-link
   clickOnItem = (playground) => {
-    for(let marker of this.props.markers) {
-      if(marker.title === playground.venue.name) {
-        window.google.maps.event.trigger(playground, "click")
+    
+     for(let marker of this.props.markers) {
+      if(marker.id === playground.venue.location.lat) {
+        console.log(marker.id)
+        console.log(playground.venue.location.lat)
+        window.google.maps.event.trigger(marker, "click")
       }
-    }
+    } 
   }
 
   pressEnterOnItem = (playground, event) => {

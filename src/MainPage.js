@@ -58,9 +58,10 @@ class MainPage extends Component {
     
     if (query !== '') {
       //const result = new RegExp(escapeRegExp(this.state.search), 'i')      
-      searchedPlaygrounds = this.state.places.filter((playground) => playground.venue.location.city.includes(query))
+      searchedPlaygrounds = this.state.places.filter((playground) => playground.venue.location.city.toUpperCase().includes(query.toUpperCase()))
       searchedPlaygrounds.sort(sortBy('venue.location.address'))
-      this.setState({ searchedPlaygrounds }) 
+      this.setState({ searchedPlaygrounds })
+       
     // if there is no input, the array searchedPlaygrounds contains all places    
     } else {
       searchedPlaygrounds = this.state.places
@@ -71,9 +72,17 @@ class MainPage extends Component {
       search: query
     }, this.initMap())
 
-    let filteredMarkers = this.state.allMarkers.filter((marker) => marker.name.includes(query))
+    let filteredMarkers = this.state.allMarkers.filter((marker) => marker.name.toUpperCase().includes(query.toUpperCase()))
     filteredMarkers.map(marker => {
       marker.setMap(map)
+      marker.addListener('click', function() {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            marker.setAnimation(null)
+        }, 200);
+        /* infowindow.setContent("<h3 tabIndex='0'>" + name + "</h3>");
+        infowindow.open(map, marker) */
+      });
     })
   }
   
@@ -161,6 +170,7 @@ class MainPage extends Component {
               searchAsk={this.searchAsk}
               markers={this.state.allMarkers}
               filterList={this.filterList}
+              initMap={this.initMap}
             />
             
 				    <div id="map" aria-label="google-map" role="application"></div>
