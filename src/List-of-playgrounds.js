@@ -12,8 +12,6 @@ class List extends Component {
     
      for(let marker of this.props.markers) {
       if(marker.id === playground.venue.location.lat) {
-        console.log(marker.id)
-        console.log(playground.venue.location.lat)
         window.google.maps.event.trigger(marker, "click")
       }
     } 

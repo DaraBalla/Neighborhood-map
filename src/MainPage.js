@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import List from './List-of-playgrounds'
 import Header from './Header'
 import axios from 'axios'
-//import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
-
-//let searchedPlaygrounds
 
 let markers = []
 let searchedPlaygrounds
@@ -136,7 +133,6 @@ class MainPage extends Component {
         id: lat,
         position: { lat: lat, lng: lng },
         title: name,
-        //map: map,
         name: city,
         label: "P"
       })
