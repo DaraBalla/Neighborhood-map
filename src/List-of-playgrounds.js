@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+
 
 class List extends Component {
 
@@ -38,10 +38,7 @@ class List extends Component {
 		return (
       
       <div className= "sidebar">
-        <Link id="add-new-playground" to='/add'>
-          <div id="plus-sign"></div>
-          <div id="add-playground">Add new playground</div>
-        </Link>
+        
         <div id="search">
           <div id="search-sign"></div>                
           <input 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
 import MainPage from './MainPage'
-import NewPlayground from './Add-new-playground'
 import { Route } from 'react-router-dom'
 
 class App extends Component {  
@@ -14,10 +13,7 @@ class App extends Component {
           <MainPage/>
         )}
         />
-        <Route path="/add" render={() => (
-          <NewPlayground/>
-        )} 
-        />
+        
       </div>
     );
   }
